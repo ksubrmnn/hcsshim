@@ -8,6 +8,7 @@ import (
 type SupportedFeatures struct {
 	Acl AclFeatures `json:"ACL"`
 	Api ApiSupport  `json:"API"`
+	RemoteSubnet bool `json:"RemoteSubnet"`
 }
 
 // AclFeatures are the supported ACL possibilities.
@@ -46,6 +47,8 @@ func GetSupportedFeatures() SupportedFeatures {
 		V2: isFeatureSupported(globals.Version, V2ApiSupport),
 		V1: true, // HNSCall is still available.
 	}
+
+	features.RemoteSubnet = isFeatureSupported(globals.Version, RemoteSubnetVersion)
 
 	return features
 }
