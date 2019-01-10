@@ -18,15 +18,34 @@ func TestSupportedFeatures(t *testing.T) {
 }
 
 func TestV2ApiSupport(t *testing.T) {
+	supportedFeatures := GetSupportedFeatures()
 	err := V2ApiSupported()
-	if err != nil {
+	if supportedFeatures.Api.V2 && err != nil {
+		t.Fatal(err)
+	}
+	if !supportedFeatures.Api.V2 && err == nil {
 		t.Fatal(err)
 	}
 }
 
 func TestRemoteSubnetSupport(t *testing.T) {
+	supportedFeatures := GetSupportedFeatures()
 	err := RemoteSubnetSupported()
-	if err != nil {
+	if supportedFeatures.RemoteSubnet && err != nil {
+		t.Fatal(err)
+	}
+	if !supportedFeatures.RemoteSubnet && err == nil {
+		t.Fatal(err)
+	}
+}
+
+func TestDSRSupport(t *testing.T) {
+	supportedFeatures := GetSupportedFeatures()
+	err := DSRSupported()
+	if supportedFeatures.DSR && err != nil {
+		t.Fatal(err)
+	}
+	if !supportedFeatures.DSR && err == nil {
 		t.Fatal(err)
 	}
 }
